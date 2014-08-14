@@ -64,7 +64,8 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
     scope: {
       heading: '@',               // Interpolate the heading attribute onto this scope
       isOpen: '=?',
-      isDisabled: '=?'
+      isDisabled: '=?',
+      toggleClick: '&'
     },
     controller: function() {
       this.setHeading = function(element) {
@@ -80,9 +81,11 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
         }
       });
 
-      scope.toggleOpen = function() {
+      scope.toggleOpen = function(event) {
         if ( !scope.isDisabled ) {
           scope.isOpen = !scope.isOpen;
+          event.isOpen = scope.isOpen;
+          scope.toggleClick({ $event: event });
         }
       };
     }
